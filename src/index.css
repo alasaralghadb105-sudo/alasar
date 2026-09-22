@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans Arabic", "Cairo", system-ui, sans-serif;
+  --font-display: "Cairo", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --color-navy: #0f2c59;
+  --color-navy-light: #1a4b8c;
+  --color-gold: #d4a24c;
+  --color-gold-soft: #f3e6c8;
+  --color-cream: #faf7f2;
+  --color-ink: #1a1f2e;
+  --color-muted: #6b7280;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    background: var(--color-cream);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  #root {
+    min-height: 100vh;
+  }
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.field {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid color-mix(in oklab, var(--color-navy) 12%, transparent);
+  background: var(--color-cream);
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  outline: none;
+}
+.field:focus {
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--color-gold) 40%, transparent);
+}
+.label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  margin-bottom: 0.375rem;
+}
