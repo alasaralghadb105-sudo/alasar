@@ -1,43 +1,1366 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="كتبي — متجر إلكتروني رقمي بسيط: كتب وتطبيقات وملفات. ر.ي و$، دفع يمني، رفع حتى 500MB." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <title>كتبي | متجر رقمي</title>
-    <script data-arena-recording="true">(function(){
-"use strict";
-var SK="__arena_rec",RRWEB_CDN="https://cdn.jsdelivr.net/npm/rrweb@2.0.0-alpha.4/dist/rrweb.min.js";
-var MAX_RECORDING_MS=600000,MAX_RRWEB_EVENTS=30000,MAX_INTERACTIONS=5000,MAX_CURSOR_POINTS=10000,recStopped=false;
-var stored=null;try{var raw=sessionStorage.getItem(SK);if(raw)stored=JSON.parse(raw);}catch(ex){}
-var meta=stored?stored.m||null:null,rrwebEvents=stored?stored.r||[]:[],rrwebStarted=false,startTime=stored?stored.st||Date.now():Date.now();
-var interactions=stored?stored.i||[]:[],cursorPath=stored?stored.c||[]:[],lastCursorSample=0,lastScrollSample=0;
-var pageHeight=document.documentElement.scrollHeight;
-var viewport={width:window.innerWidth,height:window.innerHeight};
-function isCapped(){if(recStopped)return true;if(Date.now()-startTime>=MAX_RECORDING_MS){recStopped=true;return true;}return false;}
-function persist(){try{var d=JSON.stringify({r:rrwebEvents,i:interactions,c:cursorPath,m:meta,st:startTime});sessionStorage.setItem(SK,d);}catch(ex){rrwebEvents=rrwebEvents.slice(Math.floor(rrwebEvents.length/2));try{sessionStorage.setItem(SK,JSON.stringify({r:rrwebEvents,i:interactions,c:cursorPath,m:meta,st:startTime}));}catch(ex2){}}}
-setInterval(persist,5000);
-window.addEventListener("resize",function(){viewport={width:window.innerWidth,height:window.innerHeight};pageHeight=document.documentElement.scrollHeight;});
-document.addEventListener("click",function(e){if(isCapped()||interactions.length>=MAX_INTERACTIONS)return;var el=e.target;var tag=el.tagName?el.tagName.toLowerCase():"";var text=(el.textContent||"").trim().substring(0,80);var classes=el.className&&typeof el.className==="string"?el.className.substring(0,120):"";interactions.push({type:"click",t:Date.now()-startTime,x:Math.round(e.clientX),y:Math.round(e.clientY),element:{tag:tag,text:text,classes:classes}});},true);
-window.addEventListener("scroll",function(){if(isCapped()||interactions.length>=MAX_INTERACTIONS)return;var now=Date.now();if(now-lastScrollSample<200)return;lastScrollSample=now;var scrollY=Math.round(window.scrollY||window.pageYOffset||0);var depthPct=pageHeight>viewport.height?Math.min(100,Math.round(((scrollY+viewport.height)/pageHeight)*100)):100;interactions.push({type:"scroll",t:now-startTime,y:scrollY,depth_pct:depthPct});},{passive:true});
-document.addEventListener("mousemove",function(e){if(isCapped()||cursorPath.length>=MAX_CURSOR_POINTS)return;var now=Date.now();if(now-lastCursorSample<250)return;lastCursorSample=now;cursorPath.push([Math.round(e.clientX),Math.round(e.clientY),now-startTime]);},{passive:true});
-document.addEventListener("keydown",function(e){if(isCapped()||interactions.length>=MAX_INTERACTIONS)return;if(e.target&&(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA"))return;interactions.push({type:"keydown",t:Date.now()-startTime,key:e.key});},true);
-function buildAnalytics(){if(!meta)return null;var ph=document.documentElement.scrollHeight;var maxScroll=0,clickElements={},firstClick=null,firstScroll=null,totalDistance=0;for(var i=0;i<interactions.length;i++){var ev=interactions[i];if(ev.type==="scroll"){if(ev.depth_pct>maxScroll)maxScroll=ev.depth_pct;if(!firstScroll)firstScroll=ev.t;}if(ev.type==="click"){if(!firstClick)firstClick=ev.t;var key=ev.element.tag+":"+ev.element.text.substring(0,30);clickElements[key]=true;}}for(var j=1;j<cursorPath.length;j++){var dx=cursorPath[j][0]-cursorPath[j-1][0];var dy=cursorPath[j][1]-cursorPath[j-1][1];totalDistance+=Math.sqrt(dx*dx+dy*dy);}var duration=Date.now()-startTime;var clickHeatmap=[];for(var k=0;k<interactions.length;k++){if(interactions[k].type==="click")clickHeatmap.push([interactions[k].x,interactions[k].y]);}return{generation_id:meta.generationId,tournament_id:meta.tournamentId,started_at:new Date(startTime).toISOString(),ended_at:new Date().toISOString(),duration_ms:duration,viewport:viewport,page_height:ph,interactions:interactions,cursor_path:cursorPath,click_heatmap:clickHeatmap,summary:{total_clicks:clickHeatmap.length,total_scrolls:interactions.filter(function(e){return e.type==="scroll";}).length,max_scroll_depth_pct:maxScroll,unique_elements_clicked:Object.keys(clickElements).length,time_to_first_click_ms:firstClick,time_to_first_scroll_ms:firstScroll,cursor_distance_px:Math.round(totalDistance),active_time_ms:duration}};}
-function loadRrweb(){if(rrwebStarted)return;rrwebStarted=true;var s=document.createElement("script");s.src=RRWEB_CDN;s.onload=function(){var rec=(window.rrweb&&window.rrweb.record)||window.rrwebRecord;if(!rec)return;rec({emit:function(event){if(rrwebEvents.length>=MAX_RRWEB_EVENTS||isCapped())return;rrwebEvents.push(event);}});};s.onerror=function(){};document.head.appendChild(s);}
-window.addEventListener("message",function(e){if(!e.data||typeof e.data.type!=="string")return;if(e.data.type==="arena:init"){if(!meta)startTime=Date.now();meta={generationId:e.data.generationId||e.data.modelId,tournamentId:e.data.tournamentId};persist();loadRrweb();if(e.source)e.source.postMessage({type:"arena:init-ack",generationId:meta.generationId},"*");}if(e.data.type==="arena:flush"){var resp={type:"arena:recording-data",generationId:meta?meta.generationId:null,rrwebEvents:rrwebEvents,analytics:buildAnalytics()};try{sessionStorage.removeItem(SK);}catch(ex){}if(e.source)e.source.postMessage(resp,"*");}});
-loadRrweb();
-})();</script>
-  <script data-arena-views="true">(function(){var isTop=false;try{isTop=window.self===window.top;}catch(e){}if(!isTop)return;window.__ARENA_META={generationId:"yoda",tournamentId:"db40877f-fd89-4890-8680-f562b0f1d553"};var payload={tournamentId:"db40877f-fd89-4890-8680-f562b0f1d553",modelId:"yoda"};try{var r=document.referrer;if(r){var u=new URL(r);payload.referrerDomain=u.hostname;}}catch(e){}try{var vid=null;try{vid=localStorage.getItem('arena_vid');}catch(e){}if(!vid){vid=typeof crypto!=="undefined"&&crypto.randomUUID?crypto.randomUUID():(Date.now().toString(36)+Math.random().toString(36).slice(2)).slice(0,32);try{localStorage.setItem('arena_vid',vid);}catch(e){}}if(vid)payload.viewerId=vid;}catch(e){}try{fetch("https://www.designarena.ai/api/agon/page-views",{"method":"POST","headers":{"Content-Type":"application/json"},"body":JSON.stringify(payload),"keepalive":true});}catch(e){}})();</script>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نيورا | وكيل الذكاء الاصطناعي لأعمالك</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#06070f;
+    --surface:rgba(255,255,255,.045);
+    --surface-2:rgba(255,255,255,.075);
+    --surface-3:rgba(255,255,255,.11);
+    --border:rgba(255,255,255,.09);
+    --border-strong:rgba(255,255,255,.17);
+    --text:#eaeefb;
+    --text-dim:#a8b0cc;
+    --muted:#7c85a6;
+    --accent:#7c5cff;
+    --accent-2:#a78bfa;
+    --accent-soft:rgba(124,92,255,.16);
+    --cyan:#22d3ee;
+    --pink:#f472b6;
+    --green:#34d399;
+    --amber:#fbbf24;
+    --rose:#fb7185;
+    --shadow:0 24px 60px -28px rgba(0,0,0,.85);
+    --glow-1:rgba(124,92,255,.18);
+    --glow-2:rgba(34,211,238,.13);
+    --bubble-user:linear-gradient(135deg,#7c5cff,#5b8dfa);
+  }
+  html.light{
+    --bg:#eef1f8;
+    --surface:rgba(255,255,255,.72);
+    --surface-2:rgba(255,255,255,.92);
+    --surface-3:#ffffff;
+    --border:rgba(16,22,50,.09);
+    --border-strong:rgba(16,22,50,.18);
+    --text:#101632;
+    --text-dim:#4b5578;
+    --muted:#6c7692;
+    --accent-soft:rgba(124,92,255,.12);
+    --shadow:0 24px 50px -30px rgba(22,28,70,.35);
+    --glow-1:rgba(124,92,255,.16);
+    --glow-2:rgba(34,211,238,.14);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    font-family:'Cairo',system-ui,-apple-system,sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(1100px 620px at 92% -12%, var(--glow-1), transparent 62%),
+      radial-gradient(900px 560px at -8% 14%, var(--glow-2), transparent 60%),
+      var(--bg);
+    background-attachment:fixed;
+    transition:background .45s ease, color .45s ease;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:rgba(124,92,255,.35);}
+
+  /* ---------- Scrollbars ---------- */
+  ::-webkit-scrollbar{width:9px;height:9px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+  ::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:20px;border:2px solid transparent;background-clip:content-box;}
+  ::-webkit-scrollbar-thumb:hover{background:var(--accent);background-clip:content-box;}
+
+  /* ---------- Layout ---------- */
+  .app{
+    position:relative;z-index:1;
+    display:grid;
+    grid-template-columns:272px minmax(0,1fr);
+    max-width:1640px;
+    margin:0 auto;
+    min-height:100vh;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{
+    position:sticky;top:0;height:100vh;
+    display:flex;flex-direction:column;
+    padding:22px 16px 18px;
+    background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+    border-inline-end:1px solid var(--border);
+    backdrop-filter:blur(18px);
+    z-index:40;
+  }
+  html.light .sidebar{background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.6));}
+
+  .brand{display:flex;align-items:center;gap:12px;padding:6px 10px 22px;}
+  .brand-logo{
+    width:44px;height:44px;border-radius:14px;flex:0 0 auto;
+    display:grid;place-items:center;
+    background:linear-gradient(135deg,#7c5cff,#22d3ee);
+    box-shadow:0 12px 28px -10px rgba(124,92,255,.85);
+    color:#fff;
+  }
+  .brand-logo svg{width:24px;height:24px;}
+  .brand h1{margin:0;font-size:19px;font-weight:800;letter-spacing:-.4px;line-height:1.1;}
+  .brand span{font-size:11.5px;color:var(--muted);font-weight:500;}
+
+  .nav-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.9px;padding:14px 12px 8px;text-transform:uppercase;}
+  .nav{display:flex;flex-direction:column;gap:5px;}
+  .nav-item{
+    display:flex;align-items:center;gap:12px;
+    padding:11px 13px;border-radius:13px;
+    color:var(--text-dim);font-size:14.5px;font-weight:600;
+    cursor:pointer;border:1px solid transparent;
+    transition:all .22s cubic-bezier(.4,0,.2,1);
+    background:transparent;width:100%;text-align:start;font-family:inherit;
+  }
+  .nav-item svg{width:19px;height:19px;flex:0 0 auto;opacity:.85;}
+  .nav-item:hover{background:var(--surface-2);color:var(--text);transform:translateX(-3px);}
+  .nav-item.active{
+    background:linear-gradient(90deg, var(--accent-soft), transparent);
+    color:var(--text);
+    border-color:var(--border);
+    box-shadow:inset 0 0 0 1px rgba(124,92,255,.16);
+  }
+  .nav-item.active svg{color:var(--accent-2);opacity:1;}
+  .nav-item .badge{
+    margin-inline-start:auto;font-size:11px;font-weight:700;
+    padding:2px 8px;border-radius:999px;
+    background:linear-gradient(135deg,#7c5cff,#f472b6);color:#fff;
+  }
+
+  .sidebar-foot{margin-top:auto;display:flex;flex-direction:column;gap:12px;}
+  .upgrade{
+    border-radius:18px;padding:15px;
+    background:linear-gradient(150deg, rgba(124,92,255,.28), rgba(34,211,238,.14));
+    border:1px solid var(--border-strong);
+    position:relative;overflow:hidden;
+  }
+  .upgrade::after{
+    content:"";position:absolute;width:120px;height:120px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,255,255,.22),transparent 70%);
+    top:-50px;inset-inline-start:-30px;
+  }
+  .upgrade h4{margin:0 0 4px;font-size:13.5px;font-weight:700;position:relative;}
+  .upgrade p{margin:0 0 11px;font-size:11.5px;color:var(--text-dim);line-height:1.6;position:relative;}
+  .upgrade button{
+    position:relative;width:100%;border:none;border-radius:10px;padding:9px;
+    font-family:inherit;font-weight:700;font-size:12.5px;cursor:pointer;
+    background:#fff;color:#1a1140;transition:transform .2s;
+  }
+  .upgrade button:hover{transform:translateY(-2px);}
+
+  .user-card{
+    display:flex;align-items:center;gap:11px;padding:10px;border-radius:15px;
+    background:var(--surface);border:1px solid var(--border);cursor:pointer;
+    transition:background .2s;
+  }
+  .user-card:hover{background:var(--surface-2);}
+  .avatar{
+    width:38px;height:38px;border-radius:12px;flex:0 0 auto;
+    display:grid;place-items:center;font-weight:800;font-size:14px;color:#fff;
+    background:linear-gradient(135deg,#22d3ee,#7c5cff);
+  }
+  .user-card .u-name{font-size:13.5px;font-weight:700;line-height:1.3;}
+  .user-card .u-role{font-size:11px;color:var(--muted);}
+
+  /* ---------- Main ---------- */
+  .main{padding:20px 26px 44px;min-width:0;}
+
+  .topbar{
+    display:flex;align-items:center;gap:14px;
+    padding:10px 4px 20px;
+    position:sticky;top:0;z-index:30;
+    backdrop-filter:blur(14px);
+    background:linear-gradient(180deg, var(--bg) 55%, transparent);
+  }
+  .menu-btn{
+    display:none;width:42px;height:42px;border-radius:12px;
+    background:var(--surface);border:1px solid var(--border);color:var(--text);
+    align-items:center;justify-content:center;cursor:pointer;
+  }
+  .page-title{font-size:20px;font-weight:800;letter-spacing:-.4px;margin:0;}
+  .page-sub{font-size:12.5px;color:var(--muted);margin:2px 0 0;font-weight:500;}
+
+  .search{
+    margin-inline-start:auto;
+    display:flex;align-items:center;gap:9px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:13px;padding:9px 13px;width:250px;
+    transition:border-color .25s, box-shadow .25s;
+  }
+  .search:focus-within{border-color:rgba(124,92,255,.6);box-shadow:0 0 0 4px rgba(124,92,255,.12);}
+  .search input{
+    background:transparent;border:none;outline:none;color:var(--text);
+    font-family:inherit;font-size:13.5px;width:100%;
+  }
+  .search input::placeholder{color:var(--muted);}
+  .search svg{width:16px;height:16px;color:var(--muted);flex:0 0 auto;}
+
+  .icon-btn{
+    width:42px;height:42px;border-radius:12px;flex:0 0 auto;
+    display:grid;place-items:center;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);color:var(--text-dim);
+    transition:all .22s;position:relative;
+  }
+  .icon-btn:hover{background:var(--surface-2);color:var(--text);transform:translateY(-2px);}
+  .icon-btn svg{width:18px;height:18px;}
+  .dot-badge{
+    position:absolute;top:9px;inset-inline-end:10px;width:7px;height:7px;border-radius:50%;
+    background:var(--pink);box-shadow:0 0 0 2px var(--bg);
+  }
+
+  /* ---------- Views ---------- */
+  .view{display:none;animation:fadeUp .45s cubic-bezier(.22,1,.36,1);}
+  .view.active{display:block;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+
+  /* ---------- Stats ---------- */
+  .stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px;}
+  .stat{
+    background:var(--surface);border:1px solid var(--border);border-radius:18px;
+    padding:16px 16px 14px;position:relative;overflow:hidden;
+    transition:transform .3s, border-color .3s;
+  }
+  .stat:hover{transform:translateY(-4px);border-color:var(--border-strong);}
+  .stat::before{
+    content:"";position:absolute;inset-block-start:0;inset-inline-start:0;
+    width:100%;height:3px;opacity:.85;
+  }
+  .stat.s1::before{background:linear-gradient(90deg,#7c5cff,#a78bfa);}
+  .stat.s2::before{background:linear-gradient(90deg,#22d3ee,#34d399);}
+  .stat.s3::before{background:linear-gradient(90deg,#f472b6,#fb7185);}
+  .stat.s4::before{background:linear-gradient(90deg,#fbbf24,#f59e0b);}
+  .stat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+  .stat-ico{
+    width:34px;height:34px;border-radius:11px;display:grid;place-items:center;
+  }
+  .stat-ico svg{width:17px;height:17px;}
+  .stat-val{font-size:26px;font-weight:800;letter-spacing:-1px;line-height:1;}
+  .stat-lbl{font-size:12.5px;color:var(--muted);font-weight:600;margin-top:6px;}
+  .trend{font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:8px;}
+  .trend.up{color:var(--green);background:rgba(52,211,153,.13);}
+  .trend.down{color:var(--rose);background:rgba(251,113,133,.13);}
+
+  /* ---------- Panels ---------- */
+  .panel{
+    background:var(--surface);border:1px solid var(--border);border-radius:20px;
+    backdrop-filter:blur(16px);box-shadow:var(--shadow);
+  }
+  .panel-head{
+    display:flex;align-items:center;gap:10px;
+    padding:15px 18px;border-bottom:1px solid var(--border);
+  }
+  .panel-head h3{margin:0;font-size:14.5px;font-weight:700;}
+  .panel-head .sub{font-size:11.5px;color:var(--muted);font-weight:500;}
+
+  /* ---------- Chat ---------- */
+  .chat-layout{display:grid;grid-template-columns:minmax(0,1fr) 336px;gap:16px;align-items:start;}
+  .chat-panel{display:flex;flex-direction:column;height:min(700px, calc(100vh - 230px));min-height:460px;overflow:hidden;}
+
+  .chat-head{
+    display:flex;align-items:center;gap:12px;padding:14px 18px;
+    border-bottom:1px solid var(--border);flex:0 0 auto;
+  }
+  .agent-ava{
+    width:42px;height:42px;border-radius:13px;flex:0 0 auto;position:relative;
+    display:grid;place-items:center;color:#fff;
+    background:linear-gradient(135deg,#7c5cff,#22d3ee);
+    box-shadow:0 10px 24px -12px rgba(124,92,255,.9);
+  }
+  .agent-ava svg{width:21px;height:21px;}
+  .agent-ava::after{
+    content:"";position:absolute;bottom:-2px;inset-inline-end:-2px;
+    width:13px;height:13px;border-radius:50%;background:var(--green);
+    border:2.5px solid var(--bg);
+  }
+  .chat-head .nm{font-size:14.5px;font-weight:700;line-height:1.3;}
+  .chat-head .st{font-size:11.5px;color:var(--green);font-weight:600;display:flex;align-items:center;gap:5px;}
+  .pulse{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulseDot 1.6s infinite;}
+  @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(1.35);}}
+
+  .messages{
+    flex:1 1 auto;overflow-y:auto;padding:20px 18px 8px;
+    display:flex;flex-direction:column;gap:16px;scroll-behavior:smooth;
+  }
+  .msg{display:flex;gap:10px;max-width:88%;animation:msgIn .4s cubic-bezier(.22,1,.36,1);}
+  @keyframes msgIn{from{opacity:0;transform:translateY(12px) scale(.98);}to{opacity:1;transform:none;}}
+  .msg.me{align-self:flex-end;flex-direction:row-reverse;}
+  .msg-ava{
+    width:30px;height:30px;border-radius:10px;flex:0 0 auto;display:grid;place-items:center;
+    font-size:11px;font-weight:800;color:#fff;
+  }
+  .msg-ava.bot{background:linear-gradient(135deg,#7c5cff,#22d3ee);}
+  .msg-ava.user{background:linear-gradient(135deg,#f472b6,#7c5cff);}
+  .bubble{
+    padding:12px 15px;border-radius:16px;font-size:13.8px;line-height:1.85;
+    background:var(--surface-2);border:1px solid var(--border);
+    border-start-start-radius:5px;
+  }
+  .msg.me .bubble{
+    background:var(--bubble-user);color:#fff;border-color:transparent;
+    border-start-start-radius:16px;border-start-end-radius:5px;
+    box-shadow:0 10px 26px -14px rgba(124,92,255,.95);
+  }
+  .bubble b{font-weight:700;color:var(--accent-2);}
+  .msg.me .bubble b{color:#fff;}
+  .bubble ul,.bubble ol{margin:8px 0 0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px;}
+  .bubble li{font-size:13.4px;}
+  .bubble .mono{
+    font-family:ui-monospace,Menlo,monospace;font-size:12px;
+    background:rgba(0,0,0,.25);padding:2px 7px;border-radius:7px;
+    display:inline-block;margin-top:6px;direction:ltr;
+  }
+  .msg-actions{display:flex;gap:6px;margin-top:8px;opacity:0;transition:opacity .25s;}
+  .msg:hover .msg-actions{opacity:1;}
+  .msg-actions button{
+    border:1px solid var(--border);background:var(--surface);color:var(--muted);
+    font-family:inherit;font-size:11px;font-weight:600;padding:4px 9px;border-radius:8px;cursor:pointer;
+    transition:all .2s;
+  }
+  .msg-actions button:hover{color:var(--text);background:var(--surface-3);}
+
+  .typing{display:flex;gap:4px;padding:14px 16px;}
+  .typing span{
+    width:7px;height:7px;border-radius:50%;background:var(--accent-2);
+    animation:typing 1.3s infinite;
+  }
+  .typing span:nth-child(2){animation-delay:.18s;}
+  .typing span:nth-child(3){animation-delay:.36s;}
+  @keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.4;}30%{transform:translateY(-6px);opacity:1;}}
+
+  .chips{display:flex;gap:8px;padding:10px 18px 0;flex-wrap:wrap;flex:0 0 auto;}
+  .chip{
+    font-family:inherit;font-size:12px;font-weight:600;color:var(--text-dim);
+    background:var(--surface);border:1px solid var(--border);
+    padding:7px 13px;border-radius:999px;cursor:pointer;transition:all .22s;white-space:nowrap;
+  }
+  .chip:hover{background:var(--accent-soft);border-color:rgba(124,92,255,.5);color:var(--text);transform:translateY(-2px);}
+
+  .composer{
+    flex:0 0 auto;display:flex;align-items:flex-end;gap:9px;
+    padding:14px 16px 16px;border-top:1px solid var(--border);
+  }
+  .composer .field{
+    flex:1;display:flex;align-items:flex-end;gap:8px;
+    background:var(--surface-2);border:1px solid var(--border);
+    border-radius:16px;padding:8px 10px;transition:border-color .25s, box-shadow .25s;
+  }
+  .composer .field:focus-within{border-color:rgba(124,92,255,.6);box-shadow:0 0 0 4px rgba(124,92,255,.1);}
+  .composer textarea{
+    flex:1;background:transparent;border:none;outline:none;resize:none;
+    color:var(--text);font-family:inherit;font-size:13.8px;line-height:1.7;
+    max-height:120px;padding:6px 4px;
+  }
+  .composer textarea::placeholder{color:var(--muted);}
+  .mini-btn{
+    width:34px;height:34px;border-radius:10px;flex:0 0 auto;display:grid;place-items:center;
+    background:transparent;border:none;color:var(--muted);cursor:pointer;transition:all .2s;
+  }
+  .mini-btn:hover{background:var(--surface-3);color:var(--text);}
+  .mini-btn svg{width:17px;height:17px;}
+  .send-btn{
+    width:44px;height:44px;border-radius:14px;flex:0 0 auto;display:grid;place-items:center;
+    border:none;cursor:pointer;color:#fff;
+    background:linear-gradient(135deg,#7c5cff,#5b8dfa);
+    box-shadow:0 12px 26px -12px rgba(124,92,255,1);
+    transition:transform .2s, box-shadow .2s;
+  }
+  .send-btn:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 16px 32px -12px rgba(124,92,255,1);}
+  .send-btn:active{transform:scale(.94);}
+  .send-btn svg{width:19px;height:19px;}
+
+  /* ---------- Side column ---------- */
+  .side-col{display:flex;flex-direction:column;gap:16px;}
+  .mini-agent{
+    display:flex;align-items:center;gap:11px;padding:11px 14px;
+    border-bottom:1px solid var(--border);transition:background .2s;
+  }
+  .mini-agent:last-child{border-bottom:none;}
+  .mini-agent:hover{background:var(--surface-2);}
+  .mini-ico{
+    width:34px;height:34px;border-radius:11px;flex:0 0 auto;display:grid;place-items:center;color:#fff;
+  }
+  .mini-ico svg{width:16px;height:16px;}
+  .mini-agent .t{font-size:13px;font-weight:700;line-height:1.3;}
+  .mini-agent .d{font-size:11px;color:var(--muted);}
+
+  .switch{position:relative;width:40px;height:22px;flex:0 0 auto;cursor:pointer;}
+  .switch input{opacity:0;width:0;height:0;position:absolute;}
+  .slider{
+    position:absolute;inset:0;border-radius:999px;background:var(--surface-3);
+    border:1px solid var(--border);transition:.3s;
+  }
+  .slider::before{
+    content:"";position:absolute;height:16px;width:16px;border-radius:50%;
+    background:var(--muted);top:2px;inset-inline-start:2px;transition:.3s cubic-bezier(.4,0,.2,1);
+  }
+  .switch input:checked + .slider{background:linear-gradient(135deg,#7c5cff,#22d3ee);border-color:transparent;}
+  .switch input:checked + .slider::before{transform:translateX(-18px);background:#fff;}
+  html[dir="rtl"] .switch input:checked + .slider::before{transform:translateX(-18px);}
+
+  /* ---------- Task list ---------- */
+  .task{
+    display:flex;align-items:flex-start;gap:11px;padding:12px 14px;
+    border-bottom:1px solid var(--border);cursor:pointer;transition:background .2s;
+  }
+  .task:last-child{border-bottom:none;}
+  .task:hover{background:var(--surface-2);}
+  .checkbox{
+    width:20px;height:20px;border-radius:7px;flex:0 0 auto;margin-top:1px;
+    border:1.6px solid var(--border-strong);display:grid;place-items:center;
+    transition:all .22s;cursor:pointer;
+  }
+  .checkbox svg{width:12px;height:12px;color:#fff;opacity:0;transform:scale(.5);transition:all .22s;}
+  .task.done .checkbox{background:linear-gradient(135deg,#7c5cff,#22d3ee);border-color:transparent;}
+  .task.done .checkbox svg{opacity:1;transform:scale(1);}
+  .task.done .t-title{text-decoration:line-through;color:var(--muted);}
+  .t-title{font-size:13.3px;font-weight:600;line-height:1.5;}
+  .t-meta{display:flex;align-items:center;gap:8px;margin-top:5px;flex-wrap:wrap;}
+  .tag{font-size:10.5px;font-weight:700;padding:2.5px 8px;border-radius:7px;}
+  .tag.high{color:var(--rose);background:rgba(251,113,133,.14);}
+  .tag.mid{color:var(--amber);background:rgba(251,191,36,.14);}
+  .tag.low{color:var(--green);background:rgba(52,211,153,.14);}
+  .t-time{font-size:11px;color:var(--muted);font-weight:500;}
+
+  .progress-wrap{padding:14px 16px;}
+  .bar{height:7px;border-radius:99px;background:var(--surface-3);overflow:hidden;}
+  .bar > i{
+    display:block;height:100%;border-radius:99px;
+    background:linear-gradient(90deg,#7c5cff,#22d3ee);
+    transition:width .7s cubic-bezier(.22,1,.36,1);
+  }
+  .bar-lbl{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);font-weight:600;margin-bottom:8px;}
+
+  /* ---------- Agents grid ---------- */
+  .grid-agents{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:16px;}
+  .agent-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:19px;
+    transition:transform .3s, border-color .3s, box-shadow .3s;position:relative;overflow:hidden;
+  }
+  .agent-card::after{
+    content:"";position:absolute;inset-block-start:-40%;inset-inline-start:-20%;
+    width:180px;height:180px;border-radius:50%;opacity:0;transition:opacity .4s;
+    background:radial-gradient(circle, rgba(124,92,255,.22), transparent 70%);
+  }
+  .agent-card:hover{transform:translateY(-6px);border-color:var(--border-strong);}
+  .agent-card:hover::after{opacity:1;}
+  .ac-head{display:flex;align-items:center;gap:12px;margin-bottom:13px;position:relative;z-index:1;}
+  .ac-ico{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;color:#fff;flex:0 0 auto;}
+  .ac-ico svg{width:22px;height:22px;}
+  .ac-name{font-size:15px;font-weight:700;}
+  .ac-status{font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:5px;margin-top:2px;}
+  .ac-desc{font-size:12.8px;color:var(--text-dim);line-height:1.85;margin:0 0 15px;position:relative;z-index:1;}
+  .ac-stats{display:flex;gap:18px;padding-top:14px;border-top:1px solid var(--border);position:relative;z-index:1;}
+  .ac-stats div{font-size:11px;color:var(--muted);font-weight:600;}
+  .ac-stats b{display:block;font-size:16px;color:var(--text);font-weight:800;letter-spacing:-.5px;}
+
+  /* ---------- Files ---------- */
+  .grid-files{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
+  .file{
+    background:var(--surface);border:1px solid var(--border);border-radius:17px;padding:17px;
+    cursor:pointer;transition:all .28s;
+  }
+  .file:hover{transform:translateY(-5px);border-color:var(--border-strong);background:var(--surface-2);}
+  .file-ico{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff;margin-bottom:13px;}
+  .file-name{font-size:13.2px;font-weight:700;margin-bottom:4px;word-break:break-all;}
+  .file-meta{font-size:11px;color:var(--muted);}
+
+  /* ---------- Settings ---------- */
+  .settings-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;}
+  .field-row{display:flex;flex-direction:column;gap:7px;padding:14px 18px;border-bottom:1px solid var(--border);}
+  .field-row:last-child{border-bottom:none;}
+  .field-row label{font-size:12.5px;font-weight:600;color:var(--text-dim);}
+  .field-row input[type="text"],.field-row select{
+    background:var(--surface-2);border:1px solid var(--border);border-radius:11px;
+    padding:10px 13px;color:var(--text);font-family:inherit;font-size:13.4px;outline:none;
+    transition:border-color .25s, box-shadow .25s;width:100%;
+  }
+  .field-row input[type="text"]:focus,.field-row select:focus{
+    border-color:rgba(124,92,255,.65);box-shadow:0 0 0 4px rgba(124,92,255,.12);
+  }
+  .field-row select option{background:#12142a;color:#fff;}
+  html.light .field-row select option{background:#fff;color:#111;}
+  .toggle-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;border-bottom:1px solid var(--border);}
+  .toggle-row:last-child{border-bottom:none;}
+  .toggle-row .tt{font-size:13.2px;font-weight:600;}
+  .toggle-row .td{font-size:11.5px;color:var(--muted);margin-top:2px;}
+  input[type="range"]{
+    -webkit-appearance:none;width:100%;height:6px;border-radius:99px;outline:none;
+    background:linear-gradient(90deg,#7c5cff var(--p,60%), var(--surface-3) var(--p,60%));
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;width:19px;height:19px;border-radius:50%;background:#fff;cursor:pointer;
+    box-shadow:0 3px 10px rgba(0,0,0,.4);border:3px solid #7c5cff;
+  }
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position:fixed;bottom:26px;inset-inline-start:26px;z-index:200;
+    background:var(--surface-3);border:1px solid var(--border-strong);
+    border-radius:14px;padding:13px 18px;font-size:13px;font-weight:600;
+    box-shadow:var(--shadow);display:flex;align-items:center;gap:9px;
+    transform:translateY(90px);opacity:0;transition:all .35s cubic-bezier(.22,1,.36,1);
+    backdrop-filter:blur(16px);
+  }
+  .toast.show{transform:translateY(0);opacity:1;}
+  .toast svg{width:17px;height:17px;color:var(--green);}
+
+  .overlay{
+    position:fixed;inset:0;background:rgba(3,4,12,.65);backdrop-filter:blur(4px);
+    z-index:35;opacity:0;pointer-events:none;transition:opacity .3s;
+  }
+  .overlay.show{opacity:1;pointer-events:auto;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1240px){
+    .chat-layout{grid-template-columns:minmax(0,1fr);}
+    .side-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+  }
+  @media (max-width:1024px){
+    .app{grid-template-columns:1fr;}
+    .sidebar{
+      position:fixed;inset-block:0;inset-inline-end:0;width:282px;
+      transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);
+      background:var(--bg);
+    }
+    .sidebar.open{transform:translateX(0);box-shadow:-24px 0 60px -20px rgba(0,0,0,.75);}
+    .menu-btn{display:flex;}
+    .search{display:none;}
+    .main{padding:16px 16px 40px;}
+  }
+  @media (max-width:760px){
+    .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;}
+    .stat-val{font-size:22px;}
+    .chat-panel{height:calc(100vh - 250px);min-height:400px;}
+    .page-title{font-size:17px;}
+    .msg{max-width:95%;}
+    .grid-agents{grid-template-columns:1fr;}
+    .side-col{grid-template-columns:1fr;}
+    .chips{padding:8px 14px 0;}
+    .chips .chip:nth-child(n+4){display:none;}
+  }
+  @media (max-width:420px){
+    .chip:nth-child(n+3){display:none;}
+    .brand h1{font-size:17px;}
+  }
+</style>
 </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<body>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="app">
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v1a3 3 0 0 0 0 5v1a3 3 0 0 0 3 3v1a3 3 0 0 0 6 0v-1a3 3 0 0 0 3-3v-1a3 3 0 0 0 0-5v-1a3 3 0 0 0-3-3V5a3 3 0 0 0-3-3z"/>
+          <circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <div>
+        <h1>نيورا</h1>
+        <span>وكيلك الذكي للعمل</span>
+      </div>
+    </div>
+
+    <div class="nav-label">مساحة العمل</div>
+    <nav class="nav">
+      <button class="nav-item active" data-view="chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        المحادثة الذكية
+      </button>
+      <button class="nav-item" data-view="agents">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M12 3v4M8 12h.01M16 12h.01M9 16h6"/></svg>
+        الوكلاء
+        <span class="badge">6</span>
+      </button>
+      <button class="nav-item" data-view="tasks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        المهام
+        <span class="badge">4</span>
+      </button>
+      <button class="nav-item" data-view="files">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        الملفات
+      </button>
+      <button class="nav-item" data-view="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        الإعدادات
+      </button>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="upgrade">
+        <h4>⚡ الخطة الاحترافية</h4>
+        <p>افتح الوكلاء غير المحدودين وربط أدوات العمل الخارجية.</p>
+        <button onclick="toast('تم تفعيل التجربة المجانية لمدة 14 يومًا 🎉')">ترقية الآن</button>
+      </div>
+      <div class="user-card">
+        <div class="avatar">أح</div>
+        <div>
+          <div class="u-name">أحمد الدوسري</div>
+          <div class="u-role">مدير المشاريع</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <main class="main">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="القائمة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <div>
+        <h2 class="page-title" id="pageTitle">المحادثة الذكية</h2>
+        <p class="page-sub" id="pageSub">وكيلك جاهز لتنفيذ أي مهمة</p>
+      </div>
+
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="text" placeholder="ابحث في مهامك وملفاتك…">
+      </div>
+
+      <button class="icon-btn" id="themeBtn" title="تبديل المظهر">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="icon-btn" title="الإشعارات" onclick="toast('لديك 3 إشعارات جديدة')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+        <span class="dot-badge"></span>
+      </button>
+    </header>
+
+    <!-- ============ VIEW: CHAT ============ -->
+    <section class="view active" id="view-chat">
+      <div class="stats-grid">
+        <div class="stat s1">
+          <div class="stat-top">
+            <div class="stat-ico" style="background:rgba(124,92,255,.15);color:#a78bfa">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <span class="trend up">+12%</span>
+          </div>
+          <div class="stat-val" data-count="148">0</div>
+          <div class="stat-lbl">مهام منجزة</div>
+        </div>
+        <div class="stat s2">
+          <div class="stat-top">
+            <div class="stat-ico" style="background:rgba(34,211,238,.15);color:#22d3ee">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </div>
+            <span class="trend up">+8%</span>
+          </div>
+          <div class="stat-val" data-count="62" data-suffix="س">0</div>
+          <div class="stat-lbl">ساعات موفّرة</div>
+        </div>
+        <div class="stat s3">
+          <div class="stat-top">
+            <div class="stat-ico" style="background:rgba(244,114,182,.15);color:#f472b6">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <span class="trend up">+24%</span>
+          </div>
+          <div class="stat-val" data-count="1240">0</div>
+          <div class="stat-lbl">رسالة مُعالجة</div>
+        </div>
+        <div class="stat s4">
+          <div class="stat-top">
+            <div class="stat-ico" style="background:rgba(251,191,36,.15);color:#fbbf24">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7h-6M21 7v6"/></svg>
+            </div>
+            <span class="trend down">-3%</span>
+          </div>
+          <div class="stat-val" data-count="94" data-suffix="%">0</div>
+          <div class="stat-lbl">دقة الوكيل</div>
+        </div>
+      </div>
+
+      <div class="chat-layout">
+        <!-- Chat panel -->
+        <div class="panel chat-panel">
+          <div class="chat-head">
+            <div class="agent-ava">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M12 3v4M8 12h.01M16 12h.01M9 16h6"/></svg>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div class="nm">نيورا — الوكيل الرئيسي</div>
+              <div class="st"><span class="pulse"></span> متصل ويستجيب الآن</div>
+            </div>
+            <button class="icon-btn" style="width:36px;height:36px" title="محادثة جديدة" onclick="resetChat()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+            </button>
+          </div>
+
+          <div class="messages" id="messages">
+            <div class="msg">
+              <div class="msg-ava bot">AI</div>
+              <div>
+                <div class="bubble">
+                  مساء الخير أحمد 👋<br>
+                  أنا <b>نيورا</b>، وكيلك الذكي. أستطيع مساعدتك في:
+                  <ul>
+                    <li>تنظيم مهامك وترتيب أولوياتها</li>
+                    <li>صياغة الإيميلات والتقارير</li>
+                    <li>تلخيص الاجتماعات والملفات الطويلة</li>
+                    <li>البحث وجمع المعلومات من مصادرك</li>
+                  </ul>
+                  بماذا نبدأ اليوم؟
+                </div>
+                <div class="msg-actions">
+                  <button onclick="copyText(this)">نسخ</button>
+                  <button onclick="quickSend('رتب مهامي اليوم')">رتّب مهامي</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chips">
+            <button class="chip" onclick="quickSend('لخّص لي بريدي الوارد')">📧 لخّص بريدي</button>
+            <button class="chip" onclick="quickSend('رتب مهامي اليوم')">✅ رتّب مهامي اليوم</button>
+            <button class="chip" onclick="quickSend('اكتب تقرير أداء ربع سنوي')">📊 اكتب تقريرًا</button>
+            <button class="chip" onclick="quickSend('جهّز جدول اجتماع الفريق')">📅 جدول اجتماع</button>
+            <button class="chip" onclick="quickSend('ابحث عن أفضل ممارسات إدارة المشاريع')">🔍 ابحث لي</button>
+          </div>
+
+          <div class="composer">
+            <div class="field">
+              <button class="mini-btn" title="إرفاق ملف" onclick="toast('تم فتح نافذة إرفاق الملفات')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 11.05 12.25 20.2a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </button>
+              <textarea id="input" rows="1" placeholder="اكتب رسالتك لنيورا… (Enter للإرسال)"></textarea>
+              <button class="mini-btn" title="إدخال صوتي" onclick="toast('اضغط مطولًا للتحدث إلى الوكيل 🎙️')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/></svg>
+              </button>
+            </div>
+            <button class="send-btn" id="sendBtn" title="إرسال">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1)"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Side column -->
+        <aside class="side-col">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>الوكلاء النشطون</h3>
+              <span class="sub" style="margin-inline-start:auto">3 من 6</span>
+            </div>
+            <div>
+              <div class="mini-agent">
+                <div class="mini-ico" style="background:linear-gradient(135deg,#7c5cff,#5b8dfa)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 6 9 7 9-7"/></svg>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <div class="t">وكيل البريد</div>
+                  <div class="d">يرتّب ويصيغ الردود</div>
+                </div>
+                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+              </div>
+              <div class="mini-agent">
+                <div class="mini-ico" style="background:linear-gradient(135deg,#22d3ee,#34d399)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <div class="t">وكيل المهام</div>
+                  <div class="d">ينظّم أولويات يومك</div>
+                </div>
+                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+              </div>
+              <div class="mini-agent">
+                <div class="mini-ico" style="background:linear-gradient(135deg,#f472b6,#fb7185)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <div class="t">وكيل البحث</div>
+                  <div class="d">يجمع ويلخّص المصادر</div>
+                </div>
+                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <h3>مهام اليوم</h3>
+              <button class="chip" style="margin-inline-start:auto;padding:5px 11px;font-size:11px" onclick="go('tasks')">عرض الكل</button>
+            </div>
+            <div id="miniTasks">
+              <div class="task done" onclick="toggleTask(this)">
+                <div class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+                <div>
+                  <div class="t-title">اعتماد عرض العميل النهائي</div>
+                  <div class="t-meta"><span class="tag high">عاجل</span><span class="t-time">10:30</span></div>
+                </div>
+              </div>
+              <div class="task" onclick="toggleTask(this)">
+                <div class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+                <div>
+                  <div class="t-title">تقرير الأداء الربع سنوي</div>
+                  <div class="t-meta"><span class="tag mid">مرتفع</span><span class="t-time">13:00</span></div>
+                </div>
+              </div>
+              <div class="task" onclick="toggleTask(this)">
+                <div class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+                <div>
+                  <div class="t-title">الرد على بريد الشركاء</div>
+                  <div class="t-meta"><span class="tag low">متوسط</span><span class="t-time">16:00</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="progress-wrap">
+              <div class="bar-lbl"><span>إنجاز اليوم</span><span id="miniPct">33%</span></div>
+              <div class="bar"><i id="miniBar" style="width:33%"></i></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><h3>ملخص الأسبوع</h3></div>
+            <div style="padding:16px 18px;display:flex;flex-direction:column;gap:14px">
+              <div>
+                <div class="bar-lbl"><span>البريد المُعالَج</span><span>86%</span></div>
+                <div class="bar"><i style="width:86%"></i></div>
+              </div>
+              <div>
+                <div class="bar-lbl"><span>التقارير المنجزة</span><span>72%</span></div>
+                <div class="bar"><i style="width:72%"></i></div>
+              </div>
+              <div>
+                <div class="bar-lbl"><span>الاجتماعات المُدارة</span><span>95%</span></div>
+                <div class="bar"><i style="width:95%"></i></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ VIEW: AGENTS ============ -->
+    <section class="view" id="view-agents">
+      <div class="grid-agents" id="agentsGrid"></div>
+    </section>
+
+    <!-- ============ VIEW: TASKS ============ -->
+    <section class="view" id="view-tasks">
+      <div class="panel" style="margin-bottom:16px">
+        <div class="panel-head" style="flex-wrap:wrap;gap:12px">
+          <h3>لوحة المهام</h3>
+          <div style="display:flex;gap:7px;margin-inline-start:auto;flex-wrap:wrap">
+            <button class="chip" data-filter="all" style="background:var(--accent-soft);border-color:rgba(124,92,255,.5);color:var(--text)">الكل</button>
+            <button class="chip" data-filter="open">قيد التنفيذ</button>
+            <button class="chip" data-filter="done">مكتملة</button>
+          </div>
+        </div>
+        <div class="progress-wrap">
+          <div class="bar-lbl"><span>التقدم الإجمالي للأسبوع</span><span id="bigPct">40%</span></div>
+          <div class="bar"><i id="bigBar" style="width:40%"></i></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div id="taskList"></div>
+      </div>
+    </section>
+
+    <!-- ============ VIEW: FILES ============ -->
+    <section class="view" id="view-files">
+      <div class="panel" style="margin-bottom:16px">
+        <div class="panel-head">
+          <h3>مكتبة الملفات</h3>
+          <span class="sub" style="margin-inline-start:auto">5 ملفات · 12.8 ميجابايت</span>
+        </div>
+      </div>
+      <div class="grid-files" id="filesGrid"></div>
+    </section>
+
+    <!-- ============ VIEW: SETTINGS ============ -->
+    <section class="view" id="view-settings">
+      <div class="settings-wrap">
+        <div class="panel">
+          <div class="panel-head"><h3>إعدادات الوكيل</h3></div>
+          <div class="field-row">
+            <label>اسم الوكيل</label>
+            <input type="text" value="نيورا">
+          </div>
+          <div class="field-row">
+            <label>لغة التواصل</label>
+            <select>
+              <option>العربية</option>
+              <option>English</option>
+              <option>Français</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <label>نبرة الرد</label>
+            <select>
+              <option>مهنية ومختصرة</option>
+              <option>ودّية</option>
+              <option>تفصيلية تحليلية</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <label>مستوى الإبداع <b id="creativityVal" style="color:var(--accent-2)">60%</b></label>
+            <input type="range" min="0" max="100" value="60" oninput="document.getElementById('creativityVal').textContent=this.value+'%';this.style.setProperty('--p',this.value+'%')" style="--p:60%">
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>التفضيلات والخصوصية</h3></div>
+          <div class="toggle-row">
+            <div><div class="tt">الإشعارات الفورية</div><div class="td">تنبيهك عند إنجاز أي مهمة</div></div>
+            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div><div class="tt">الحفظ التلقائي للمحادثات</div><div class="td">الاحتفاظ بسجل الوكيل لمدة 90 يومًا</div></div>
+            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div><div class="tt">التنفيذ التلقائي للمهام</div><div class="td">السماح للوكيل بالعمل دون تأكيد</div></div>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div><div class="tt">الوضع المتقدم</div><div class="td">استخدام نماذج التحليل العميق</div></div>
+            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>الأدوات المتصلة</h3></div>
+          <div class="mini-agent">
+            <div class="mini-ico" style="background:linear-gradient(135deg,#22c55e,#16a34a)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div style="flex:1"><div class="t">Google Workspace</div><div class="d">متصل · بريد وتقويم وملفات</div></div>
+            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+          </div>
+          <div class="mini-agent">
+            <div class="mini-ico" style="background:linear-gradient(135deg,#7c5cff,#a78bfa)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18" rx="2"/><rect x="14" y="3" width="7" height="10" rx="2"/></svg>
+            </div>
+            <div style="flex:1"><div class="t">Notion</div><div class="d">متصل · قواعد المعرفة</div></div>
+            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+          </div>
+          <div class="mini-agent">
+            <div class="mini-ico" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div style="flex:1"><div class="t">Slack</div><div class="d">غير متصل · اضغط للربط</div></div>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+  <span id="toastMsg">تم</span>
+</div>
+
+<script>
+/* ================= البيانات ================= */
+const TASKS = [
+  {id:1, title:'اعتماد عرض العميل النهائي وإرساله', pr:'high', time:'10:30 ص', done:true},
+  {id:2, title:'إعداد تقرير الأداء الربع سنوي', pr:'mid', time:'01:00 م', done:false},
+  {id:3, title:'الرد على بريد الشركاء والاستفسارات', pr:'low', time:'04:00 م', done:false},
+  {id:4, title:'تحديث خطة التسويق للربع القادم', pr:'mid', time:'05:30 م', done:false},
+  {id:5, title:'جدولة اجتماع فريق المنتج ومحضر الاجتماع', pr:'low', time:'غدًا', done:true},
+];
+
+const AGENTS = [
+  {n:'وكيل البريد', d:'يقرأ صندوقك الوارد، يلخّص الرسائل المهمة، ويصيغ ردودًا احترافية جاهزة للإرسال.', g:'linear-gradient(135deg,#7c5cff,#5b8dfa)', t:412, a:'98%', on:true, i:'mail'},
+  {n:'وكيل المهام', d:'يرتّب مهامك اليومية حسب الأولوية والوقت المتاح، ويتابع تقدمك لحظة بلحظة.', g:'linear-gradient(135deg,#22d3ee,#34d399)', t:389, a:'96%', on:true, i:'check'},
+  {n:'وكيل البحث', d:'يجمع المعلومات من مصادرك المتصلة ويلخّصها في تقرير مركّز قابل للتنفيذ.', g:'linear-gradient(135deg,#f472b6,#fb7185)', t:176, a:'93%', on:true, i:'search'},
+  {n:'وكيل التقارير', d:'يحلّل بياناتك وينشئ تقارير ومخططات احترافية جاهزة للعرض على الإدارة.', g:'linear-gradient(135deg,#fbbf24,#f59e0b)', t:98, a:'95%', on:false, i:'chart'},
+  {n:'وكيل الاجتماعات', d:'يجد أفضل الأوقات، يرسل الدعوات، ويكتب محضر الاجتماع مع المهام المترتبة.', g:'linear-gradient(135deg,#a78bfa,#7c5cff)', t:64, a:'97%', on:false, i:'calendar'},
+  {n:'وكيل المحتوى', d:'يكتب المقالات والمنشورات ونصوص العروض بأسلوب يناسب جمهورك المستهدف.', g:'linear-gradient(135deg,#34d399,#22d3ee)', t:121, a:'91%', on:false, i:'pen'},
+];
+
+const FILES = [
+  {n:'تقرير_الأداء_الربع3.pdf', s:'2.4 م.ب', d:'قبل 3 أيام', c:'linear-gradient(135deg,#fb7185,#f43f5e)', t:'PDF'},
+  {n:'خطة_التسويق_2025.docx', s:'860 ك.ب', d:'قبل يوم', c:'linear-gradient(135deg,#5b8dfa,#7c5cff)', t:'DOC'},
+  {n:'ميزانية_المشروع.xlsx', s:'1.2 م.ب', d:'قبل 5 أيام', c:'linear-gradient(135deg,#34d399,#10b981)', t:'XLS'},
+  {n:'عرض_تقديمي_للعملاء.pptx', s:'6.8 م.ب', d:'قبل أسبوع', c:'linear-gradient(135deg,#fbbf24,#f97316)', t:'PPT'},
+  {n:'ملاحظات_الاجتماع.txt', s:'24 ك.ب', d:'أمس', c:'linear-gradient(135deg,#a78bfa,#8b5cf6)', t:'TXT'},
+];
+
+const ICONS = {
+  mail:'<rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 6 9 7 9-7"/>',
+  check:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+  chart:'<path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/>',
+  calendar:'<rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  pen:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>'
+};
+
+/* ================= أدوات مساعدة ================= */
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+function toast(msg){
+  const t = $('#toast');
+  $('#toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+function copyText(btn){
+  const bubble = btn.closest('div').parentElement.querySelector('.bubble');
+  navigator.clipboard?.writeText(bubble.innerText).catch(()=>{});
+  toast('تم نسخ الرد إلى الحافظة');
+}
+
+/* ================= التنقل بين الأقسام ================= */
+const VIEW_META = {
+  chat:     ['المحادثة الذكية','وكيلك جاهز لتنفيذ أي مهمة'],
+  agents:   ['وكلاء الذكاء الاصطناعي','٦ وكلاء متخصصون يعملون لصالحك'],
+  tasks:    ['إدارة المهام','تابع وأنجز مهامك بذكاء'],
+  files:    ['الملفات والمستندات','كل ملفاتك في مكان واحد'],
+  settings: ['الإعدادات','خصّص الوكيل حسب طريقة عملك']
+};
+
+function go(view){
+  $$('.view').forEach(v => v.classList.remove('active'));
+  $('#view-' + view).classList.add('active');
+  $$('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.view === view));
+  const meta = VIEW_META[view] || ['نيورا',''];
+  $('#pageTitle').textContent = meta[0];
+  $('#pageSub').textContent = meta[1];
+  closeSidebar();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+$$('.nav-item').forEach(btn => btn.addEventListener('click', () => go(btn.dataset.view)));
+
+/* ================= الشريط الجانبي على الجوال ================= */
+const sidebar = $('#sidebar'), overlay = $('#overlay');
+function openSidebar(){ sidebar.classList.add('open'); overlay.classList.add('show'); }
+function closeSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+$('#menuBtn').addEventListener('click', openSidebar);
+overlay.addEventListener('click', closeSidebar);
+
+/* ================= المظهر ================= */
+const themeBtn = $('#themeBtn');
+themeBtn.addEventListener('click', () => {
+  const html = document.documentElement;
+  const light = html.classList.toggle('light');
+  html.classList.toggle('dark', !light);
+  $('#themeIcon').innerHTML = light
+    ? '<circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'
+    : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  toast(light ? 'تم تفعيل المظهر الفاتح ☀️' : 'تم تفعيل المظهر الداكن 🌙');
+});
+
+/* ================= عدّادات الإحصائيات ================= */
+function animateCounters(){
+  $$('.stat-val').forEach(el => {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    let cur = 0;
+    const step = Math.max(1, Math.ceil(target / 45));
+    const timer = setInterval(() => {
+      cur += step;
+      if (cur >= target){ cur = target; clearInterval(timer); }
+      el.textContent = cur.toLocaleString('ar-EG') + suffix;
+    }, 24);
+  });
+}
+
+/* ================= المحادثة ================= */
+const messagesEl = $('#messages');
+const inputEl = $('#input');
+let busy = false;
+
+function addMessage(role, html, actions = true){
+  const wrap = document.createElement('div');
+  wrap.className = 'msg' + (role === 'user' ? ' me' : '');
+  const avatar = role === 'user'
+    ? '<div class="msg-ava user">أنا</div>'
+    : '<div class="msg-ava bot">AI</div>';
+  const actionsHtml = (role === 'bot' && actions) ? `
+    <div class="msg-actions">
+      <button onclick="copyText(this)">نسخ</button>
+      <button onclick="quickSend('تابع التفاصيل')">تابع</button>
+    </div>` : '';
+  wrap.innerHTML = `${avatar}<div><div class="bubble">${html}</div>${actionsHtml}</div>`;
+  messagesEl.appendChild(wrap);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function showTyping(){
+  const el = document.createElement('div');
+  el.className = 'msg';
+  el.id = 'typingMsg';
+  el.innerHTML = `<div class="msg-ava bot">AI</div><div class="bubble typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(el);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function hideTyping(){
+  const el = $('#typingMsg');
+  if (el) el.remove();
+}
+
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function generateReply(raw){
+  const t = raw.toLowerCase();
+
+  if (/بريد|ايميل|إيميل|رسائل|وارد/.test(t)){
+    return `<b>لخّصت صندوقك الوارد</b> — لديك 14 رسالة جديدة، المهم منها:
+      <ul>
+        <li><b>عميل «شركة أفق»:</b> يطلب تعديل العرض قبل الخميس → رد عاجل</li>
+        <li><b>الإدارة المالية:</b> بانتظار اعتماد الفاتورة <span class="mono">#2291</span></li>
+        <li><b>دعوة ورشة عمل:</b> الأحد الساعة 10:00 صباحًا</li>
+      </ul>
+      هل أصيغ لك ردودًا جاهزة على الثلاثة الآن؟`;
+  }
+
+  if (/مهام|مهمة|رتّب|أولويات|اولويات|يومي/.test(t)){
+    return `<b>جهّزت خطة يوم مرتّبة حسب الأهمية:</b>
+      <ol>
+        <li>🔴 اعتماد عرض العميل النهائي — <b>45 دقيقة</b></li>
+        <li>🟠 تقرير الأداء الربع سنوي — <b>60 دقيقة</b></li>
+        <li>🟡 الرد على بريد الشركاء — <b>20 دقيقة</b></li>
+        <li>🟢 تحديث خطة التسويق — <b>30 دقيقة</b></li>
+      </ol>
+      الوقت المتوقع: <b>ساعتان و35 دقيقة</b>. أضفتها إلى لوحة المهام — هل أبدأ التنفيذ؟`;
+  }
+
+  if (/تقرير|أداء|اداء|تحليل|بيانات/.test(t)){
+    return `<b>مسودة تقرير الأداء الربع سنوي</b>
+      <ul>
+        <li><b>الملخص التنفيذي:</b> نمو الإيرادات <b>+18%</b> مقارنة بالربع السابق.</li>
+        <li><b>أبرز المؤشرات:</b> رضا العملاء 92%، معدل التسليم 96%، خفض التكاليف 7%.</li>
+        <li><b>التحديات:</b> تأخر سلسلة التوريد أثر على 3 مشاريع.</li>
+      </ul>
+      التقرير جاهز في الملفات بصيغة <span class="mono">PDF</span>. أضيف مخططات بيانية؟`;
+  }
+
+  if (/اجتماع|جدول|موعد|تقويم|دعوة/.test(t)){
+    return `<b>أفضل نافذة زمنية لاجتماع فريقك:</b> الثلاثاء 11:00 – 11:45 صباحًا (جميع الأعضاء متاحون).
+      <ul>
+        <li>أنشأت الدعوة وأرسلتها إلى <b>6 مشاركين</b>.</li>
+        <li>أرفقت جدول أعمال مبدئي من 4 بنود.</li>
+        <li>سأرسل تذكيرًا قبل الاجتماع بـ 15 دقيقة.</li>
+      </ul>
+      هل أكتب محضر الاجتماع تلقائيًا بعد انتهائه؟`;
+  }
+
+  if (/بحث|ابحث|مصادر|معلومات|مراجع/.test(t)){
+    return `<b>نتائج البحث (7 مصادر موثوقة):</b>
+      <ul>
+        <li>أفضل الممارسات تعتمد على دورات قصيرة أسبوعية بدل التخطيط الطويل.</li>
+        <li>الفرق التي تستخدم لوحات مرئية ترتفع إنتاجيتها بنسبة <b>23%</b>.</li>
+        <li>التوثيق المستمر يقلل زمن التسليم بنحو <b>15%</b>.</li>
+      </ul>
+      جهّزت ملخصًا من صفحة واحدة — أضيفه للملفات؟`;
+  }
+
+  if (/ملخص|لخّص|لخص|اختصر/.test(t)){
+    return `تم التلخيص ✅ إليك النقاط الأساسية في 5 أسطر:
+      <ul>
+        <li>الهدف الرئيسي: تسريع دورة التسليم وتحسين تجربة العميل.</li>
+        <li>الميزانية المعتمدة كافية مع هامش 8% طوارئ.</li>
+        <li>مخاطر رئيسية: الاعتماد على مورّد واحد.</li>
+      </ul>
+      أستطيع إرسال الملخص إلى بريدك أو تحويله لعرض تقديمي.`;
+  }
+
+  if (/كود|برمج|تطبيق|موقع|api/.test(t)){
+    return `سأجهّز لك هيكل الحل التقني:
+      <ul>
+        <li>طبقة الواجهة: مكوّنات حديثة متجاوبة.</li>
+        <li>طبقة الخدمات: واجهات API موثّقة ومؤمّنة.</li>
+        <li>طبقة البيانات: قاعدة بيانات مرنة قابلة للتوسع.</li>
+      </ul>
+      <span class="mono">npm run agent:init</span><br>أبدأ بكتابة الكود الآن؟`;
+  }
+
+  if (/عرض|تقديم|بريزنتيشن|سلايد/.test(t)){
+    return `جهّزت هيكل عرض تقديمي من <b>12 شريحة</b>:
+      <ul>
+        <li>افتتاحية: المشكلة والحل في 60 ثانية.</li>
+        <li>الفصل الأول: البيانات والأدلة الرقمية.</li>
+        <li>الفصل الثاني: خطة التنفيذ والجدول الزمني.</li>
+        <li>الخاتمة: الميزانية والخطوة التالية.</li>
+      </ul>
+      أضيف الهوية البصرية لشركتك على كل الشريحة؟`;
+  }
+
+  if (/شكرا|شكرًا|ممتاز|رائع|تمام/.test(t)){
+    return `على الرحب والسعة أحمد 🙌<br>سأبقى في الخلفية أتابع مهامك وأبلّغك بأي شيء يحتاج انتباهك. هل تريد أن أفعّل الوضع التلقائي لتنفيذ المهام؟`;
+  }
+
+  const safe = escapeHtml(raw);
+  return `فهمت طلبك: «<b>${safe}</b>».<br>سأتعامل معه على ثلاث مراحل:
+    <ol>
+      <li>جمع المعلومات اللازمة من ملفاتك وأدواتك المتصلة.</li>
+      <li>تحليلها وتجهيز مسودة أولية قابلة للتعديل.</li>
+      <li>مراجعتها معك ثم التنفيذ النهائي.</li>
+    </ol>
+    ابدأ الآن؟ يمكنك أيضًا ربط <b>Google Workspace</b> أو <b>Notion</b> لأعمل مباشرة عليهما.`;
+}
+
+function send(){
+  const text = inputEl.value.trim();
+  if (!text || busy) return;
+  addMessage('user', escapeHtml(text));
+  inputEl.value = '';
+  inputEl.style.height = 'auto';
+  busy = true;
+  showTyping();
+  const delay = 900 + Math.random() * 700;
+  setTimeout(() => {
+    hideTyping();
+    addMessage('bot', generateReply(text));
+    busy = false;
+  }, delay);
+}
+
+function quickSend(text){
+  inputEl.value = text;
+  send();
+}
+
+$('#sendBtn').addEventListener('click', send);
+inputEl.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send(); }
+});
+inputEl.addEventListener('input', () => {
+  inputEl.style.height = 'auto';
+  inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
+});
+
+function resetChat(){
+  messagesEl.innerHTML = '';
+  addMessage('bot', 'بدأنا محادثة جديدة ✨<br>أنا جاهز — أخبرني بما تريد إنجازه اليوم.');
+  toast('تم بدء محادثة جديدة');
+}
+
+/* ================= المهام ================= */
+let currentFilter = 'all';
+
+function renderTasks(){
+  const list = $('#taskList');
+  const items = TASKS.filter(t => currentFilter === 'all' ? true : (currentFilter === 'done' ? t.done : !t.done));
+  list.innerHTML = items.length ? items.map(t => `
+    <div class="task ${t.done ? 'done' : ''}" data-id="${t.id}" onclick="toggleTask(this)">
+      <div class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div style="flex:1">
+        <div class="t-title">${t.title}</div>
+        <div class="t-meta">
+          <span class="tag ${t.pr === 'high' ? 'high' : t.pr === 'mid' ? 'mid' : 'low'}">
+            ${t.pr === 'high' ? 'عاجل' : t.pr === 'mid' ? 'مرتفع' : 'متوسط'}
+          </span>
+          <span class="t-time">⏰ ${t.time}</span>
+        </div>
+      </div>
+    </div>`).join('')
+    : `<div style="padding:40px;text-align:center;color:var(--muted);font-size:13.5px">لا توجد مهام في هذا التصنيف ✨</div>`;
+  updateProgress();
+}
+
+function toggleTask(el){
+  const id = parseInt(el.dataset.id, 10);
+  if (!id){ // mini list inside chat
+    el.classList.toggle('done');
+    updateMiniProgress();
+    return;
+  }
+  const task = TASKS.find(t => t.id === id);
+  task.done = !task.done;
+  el.classList.toggle('done', task.done);
+  if (task.done) toast('أُنجزت المهمة ✅ أحسنت!');
+  updateProgress();
+}
+
+function updateProgress(){
+  const total = TASKS.length;
+  const done = TASKS.filter(t => t.done).length;
+  const pct = Math.round((done / total) * 100);
+  $('#bigBar').style.width = pct + '%';
+  $('#bigPct').textContent = pct + '%';
+}
+
+function updateMiniProgress(){
+  const wrap = $('#miniTasks');
+  const tasks = wrap.querySelectorAll('.task');
+  const done = wrap.querySelectorAll('.task.done').length;
+  const pct = Math.round((done / tasks.length) * 100);
+  $('#miniBar').style.width = pct + '%';
+  $('#miniPct').textContent = pct + '%';
+}
+
+$$('[data-filter]').forEach(b => b.addEventListener('click', () => {
+  currentFilter = b.dataset.filter;
+  $$('[data-filter]').forEach(x => {
+    x.style.background = '';
+    x.style.borderColor = '';
+    x.style.color = '';
+  });
+  b.style.background = 'var(--accent-soft)';
+  b.style.borderColor = 'rgba(124,92,255,.5)';
+  b.style.color = 'var(--text)';
+  renderTasks();
+}));
+
+/* ================= الوكلاء ================= */
+function renderAgents(){
+  $('#agentsGrid').innerHTML = AGENTS.map((a, i) => `
+    <div class="agent-card">
+      <div class="ac-head">
+        <div class="ac-ico" style="background:${a.g}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[a.i]}</svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div class="ac-name">${a.n}</div>
+          <div class="ac-status">
+            <span class="pulse" style="${a.on ? '' : 'background:var(--muted);animation:none'}"></span>
+            ${a.on ? 'يعمل الآن' : 'متوقف'}
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" ${a.on ? 'checked' : ''} onchange="toggleAgent(${i}, this)">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <p class="ac-desc">${a.d}</p>
+      <div class="ac-stats">
+        <div><b>${a.t}</b> مهمة منجزة</div>
+        <div><b>${a.a}</b> دقة</div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleAgent(i, el){
+  AGENTS[i].on = el.checked;
+  toast(el.checked ? `تم تفعيل ${AGENTS[i].n} ✅` : `تم إيقاف ${AGENTS[i].n} مؤقتًا`);
+  renderAgents();
+}
+
+/* ================= الملفات ================= */
+function renderFiles(){
+  $('#filesGrid').innerHTML = FILES.map(f => `
+    <div class="file" onclick="toast('جارٍ فتح: ${f.n}')">
+      <div class="file-ico" style="background:${f.c}">${f.t}</div>
+      <div class="file-name">${f.n}</div>
+      <div class="file-meta">${f.s} · ${f.d}</div>
+    </div>`).join('');
+}
+
+/* ================= التشغيل ================= */
+renderAgents();
+renderTasks();
+renderFiles();
+updateMiniProgress();
+window.addEventListener('load', animateCounters);
+setTimeout(animateCounters, 120);
+</script>
+</body>
 </html>
